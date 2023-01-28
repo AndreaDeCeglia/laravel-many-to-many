@@ -10,4 +10,8 @@
         qui stamperò i post
     </h1>
 
+    @foreach ($posts as $elem)
+        {{ $elem->title }}
+    @endforeach
+
 @endsection
