@@ -19,7 +19,8 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+//QUESTA PARTE SI VA A COMMENTARE
+//Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -27,6 +28,13 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+//AGGIUNGERE QUESTO:
+import App from './views/App';
+//per poter andare il documento App.vue, all'interno della cartella views, 
+//che vanno creati all'interno della cartella JS !!
+
 const app = new Vue({
-    el: '#app',
+    el: '#root',
+    //ED IN SEGUITO SI AGGIUNGE:
+    render: h=> h(App),
 });

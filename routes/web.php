@@ -33,4 +33,7 @@ Route::middleware('auth')
 
 
 //trovare un modo per gestire tutte le rotte che non utilizzano l'autenticazione
-
+//tutte le rotte al di fuori dell'autenticazione avranno il seguente atterraggio
+Route::get('{any?}', function(){
+    return view('guest.home'); //all'interno di questa VIEW, ci sarà la struttura HTML
+})->where("any", ".*");
