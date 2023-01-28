@@ -29,6 +29,13 @@ Route::middleware('auth')
     ->name('admin.') // da il nome al prefisso dei name delle rotte
     ->group(function(){ //nella funzione group(), vado a scrivere tutti quei controller che saranno all'interno della cartella Admin, e che hanno bisogno di autenticazione
         Route::get('/', 'HomeController@index')->name('index');
+        //*** CONTROLLERS PER LE CRUD ***** */
+        //UNA VOLTA LANCIATO DA TERMINALE:
+        // php artisan make:controller Admin/PostController -r //
+        Route::resource('/posts', PostController::class);
+        //una volta creato il Controller Risorsa, si possono costruire le pagine
+        //dedicate alle CRUD, e di conseguenza andare a scirvere le funzioni
+        //in PostController
     });
 
 
