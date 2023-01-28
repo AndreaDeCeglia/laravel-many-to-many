@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+//utilizzo di Auth -> chiedere
+use Illuminate\Support\Facades\Auth;
+
 class PostController extends Controller
 {
     /**
@@ -14,7 +17,13 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('admin.post.index');
+        //per avere a disposizione in pagine i dati dell'utente loggato:
+        $user = Auth::user();
+        
+        return view('admin.post.index', compact('user'));
+        //una volta ritonata la vista, andare a creare il link che
+        //faccia atterrare alla lista dei Post
+        //in questo caso in admin.home
     }
 
     /**

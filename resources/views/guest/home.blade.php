@@ -18,24 +18,8 @@ Route::get('{any?}', function(){
     <div>qui è dove verrà implementato Vue</div>
 @endsection  --}}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
+@extends('layouts.app')
 
-<body>
-
-    {{-- ora qui si inserisce Vue --}}
-    <div id="root">
-
-    </div>
-    
-    {{-- qua si carica il file JS che permette di leggere Vue -> resources/js/app.js --}}
-    <script src="{{ asset('js/app.js') }}"></script>
-
-</body>
-</html>
+@section('content')
+    <div id="root"></div>
+@endsection
