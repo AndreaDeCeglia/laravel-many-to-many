@@ -25,7 +25,11 @@
                 @foreach ($posts as $elem)
                 <tr>
                     <td>{{$elem->id}}</td>
-                    <td>{{$elem->title}}</td>
+                    <td>
+                        <a href="{{ route('admin.posts.show', $elem->id) }}">
+                            {{$elem->title}}
+                        </a>
+                    </td>
                     <td>{{$elem->body}}</td>
                     {{-- <td>
                         <form action="{{route('posts.destroy', $elem->id)}}" method="POST">

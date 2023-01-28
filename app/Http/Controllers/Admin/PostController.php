@@ -58,7 +58,9 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $elem = Post::findOrFail($id);
+
+        return view('admin.post.show', compact('elem'));
     }
 
     /**
