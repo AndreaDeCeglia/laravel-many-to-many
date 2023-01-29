@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Category;
 
 //utilizzo di Auth -> chiedere
 use Illuminate\Support\Facades\Auth;
@@ -19,11 +20,14 @@ class PostController extends Controller
     public function index()
     {
         //per avere a disposizione in pagine i dati dell'utente loggato:
-        $user = Auth::user();
-        $posts = Post::All();
+        //$posts = Post::All(); -> con la FK questo diventa:
+        $data = [
+            'posts' => Post::with('category'),
+             'user' => Auth::user()
+        ];
         
         
-        return view('admin.post.index', compact('user', 'posts'));
+        return view('admin.post.index', $data);
         //una volta ritonata la vista, andare a creare il link che
         //faccia atterrare alla lista dei Post
         //in questo caso in admin.home
@@ -36,7 +40,10 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.post.create');
+        //creata la relaz. si inviano le info
+        $categories = Category::All();
+
+        return view('admin.post.create', compact('categories'));
     }
 
     /**
@@ -116,6 +123,6 @@ class PostController extends Controller
         $elem = Post::findOrFail($id);
         $elem->delete();
 
-        return redirect()->route('admin.post.index');
+        return redirect()->route('admin.post.index'); 
     }
 }

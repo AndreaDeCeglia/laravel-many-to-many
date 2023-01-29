@@ -24,6 +24,7 @@
                     <th scope="col">#id</th>
                     <th scope="col">title</th>
                     <th scope="col">body</th>
+                    <th scope="col">category</th>
                     <th scope="col">actions</th>
                 </tr>
             </thead>
@@ -37,6 +38,11 @@
                         </a>
                     </td>
                     <td>{{$elem->body}}</td>
+                    <td>
+                        @if ( $elem->category )
+                            {{ $elem->category['name'] }}
+                        @endif
+                    </td>
                     <td>
                         <form action="{{route('admin.posts.destroy', $elem->id)}}" method="POST">
                             @csrf

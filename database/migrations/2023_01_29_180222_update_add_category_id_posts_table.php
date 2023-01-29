@@ -40,6 +40,7 @@ class UpdateAddCategoryIdPostsTable extends Migration
             $table->dropColumn('category_id');
              // fatto ciò si può lanciare giusto un
             // php artisan migrate //
+            //creata la relazione dobbiamo andare a lavorare su Create ed Edit.
         });
     }
 }

@@ -46,16 +46,18 @@
 
         </div>
 
-        {{-- <div class="mb-3">
+        <div class="mb-3">
             <label class="form-label">Category</label>
             <select class="form-control" name="category_id" id="">
                 @foreach ($categories as $category)
-                    <option value="{{ $category->id }}">
+                    <option value="{{ $category->id }}"
+                        {{ $category->id == old('category_id', $elem->category_id) ? 'selected' : '' }}>
+
                         {{ $category->name }}
                     </option>
                 @endforeach
             </select>
-        </div> --}}
+        </div>
 
         {{-- <div class="mb-3">
             <label class="form-label">Tags</label>
