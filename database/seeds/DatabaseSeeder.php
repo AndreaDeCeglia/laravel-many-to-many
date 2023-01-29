@@ -11,6 +11,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(PostSeeder::class);
+        $this->call(
+            //quando i Seeder sono più di 1, bisogna andare a creare un array..
+            //l'ordine è importante
+            [
+                PostSeeder::class,
+                CategorySeeder::class
+            ]
+        );
     }
 }
