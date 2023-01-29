@@ -36,7 +36,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.post.create');
     }
 
     /**
@@ -47,7 +47,19 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->All();
+
+        //validazione
+        $request->validate([
+            'title' => 'required',
+            'body' => 'required'
+        ]);
+
+        $new_post = new Post();
+        $new_post->fill($data);
+        $new_post->save();
+
+        return redirect()->route('admin.post.index');
     }
 
     /**
@@ -71,7 +83,9 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $elem = Post::findOrFail($id);
+
+        return view('admin.post.edit', compact('elem'));
     }
 
     /**
@@ -83,7 +97,12 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->All();
+        $elem = Post::findOrFail($id);
+
+        $elem->update($data);
+
+        return redirect()->route('admin.post.show', $elem->id);
     }
 
     /**
@@ -94,6 +113,9 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $elem = Post::findOrFail($id);
+        $elem->delete();
+
+        return redirect()->route('admin.post.index');
     }
 }

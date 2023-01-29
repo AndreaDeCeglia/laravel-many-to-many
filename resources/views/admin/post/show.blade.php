@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div id="text-center">
+    <div id="text-center" class="text-center">
         <h1>
             {{ $elem->title }}
         </h1>
