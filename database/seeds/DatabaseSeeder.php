@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
             //l'ordine è importante
             [
                 PostSeeder::class,
-                CategorySeeder::class
+                CategorySeeder::class,
+                TagSeeder::class
             ]
         );
     }

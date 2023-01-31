@@ -54,17 +54,21 @@
             </select>
         </div>
 
-        {{-- <div class="mb-3">
+        <div class="mb-3">
             <label class="form-label">Tags</label>
 
             @foreach ($tags as $tag)
                 <label for="">
                     <input type="checkbox" name="tags[]" value="{{ $tag->id }}">
+                    {{-- NAME genererà il nome della KEY nell'ARRAY della REQUEST,
+                    ed il VALUE verrà abbinato al NAME.... 
+                    essendo molteplici i dati che passo alla REQUEST,
+                    li mando all'intenro di un ARRAY -> tags[] --}}
                     {{ $tag->name }}
                 </label>
             @endforeach
 
-        </div> --}}
+        </div>
 
         <button type="submit" class="btn btn-primary">Create</button>
     </form>

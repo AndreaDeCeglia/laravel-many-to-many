@@ -5,6 +5,11 @@
         <h1>
             {{ $elem->title }}
         </h1>
+        <h3>
+            @if ( $elem->category )
+                    {{ $elem->category->name }}
+            @endif 
+        </h3>
         <p>
             {{ $elem->body }}
         </p>

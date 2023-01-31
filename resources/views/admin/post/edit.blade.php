@@ -59,17 +59,29 @@
             </select>
         </div>
 
-        {{-- <div class="mb-3">
+        <div class="mb-3">
             <label class="form-label">Tags</label>
 
             @foreach ($tags as $tag)
                 <label for="">
-                    <input type="checkbox" name="tags[]" value="{{ $tag->id }}">
+                    
+                    <input 
+                        type="checkbox" 
+                        name="tags[]" 
+                        value="{{ $tag->id }}"
+                        {{ $elem->tags->contains($tag) ? 'checked' : '' }}
+                        {{-- il ternario ti farà vedere in pagina eventuali Tag selezionati 
+                            e vuol dire, prendi il singolo POST mandato in pagina,
+                            recupera la relazione TAGS, e quindi,
+                            passo un ARRAY CHIAVE VALORE, con le info di Post e Tag,
+                            e controllare se il singolo Tag è quello ciclato in quel momento --}}
+                    >
+
                     {{ $tag->name }}
                 </label>
             @endforeach
 
-        </div> --}}
+        </div>
 
         <button type="submit" class="btn btn-primary">Modifica</button>
     </form>

@@ -25,6 +25,7 @@
                     <th scope="col">title</th>
                     <th scope="col">body</th>
                     <th scope="col">category</th>
+                    <th scope="col">tags</th>
                     <th scope="col">actions</th>
                 </tr>
             </thead>
@@ -50,6 +51,14 @@
                         @if ( $elem->category )
                             {{ $elem->category->name }}
                         @endif 
+                    </td>
+
+                    <td>
+                        @if ($elem->tags)
+                            @foreach ($elem->tags as $tag)
+                                <h6 class="">{{ $tag->name }}</h6>
+                            @endforeach
+                        @endif
                     </td>
                     
                     <td>

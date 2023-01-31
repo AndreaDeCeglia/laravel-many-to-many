@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\Tag;
 
 //utilizzo di Auth -> chiedere
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +29,7 @@ class PostController extends Controller
         //$posts = Post::All();
 
         $data = [
-            'posts' => Post::with('category')->get(),
+            'posts' => Post::with('category', 'tags')->get(),
         ];
         //dd($data);        
         
@@ -48,8 +49,10 @@ class PostController extends Controller
     {
         //creata la relaz. si inviano le info
         $categories = Category::All();
+        //creati Tag con relativa Pivot:
+        $tags = Tag::All();
 
-        return view('admin.post.create', compact('categories'));
+        return view('admin.post.create', compact('categories', 'tags'));
     }
 
     /**
@@ -61,6 +64,12 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $data = $request->All();
+        //tramite la $request->All() recupero tutti i dati
+        //il category_id ed il tags[] ..
+        // la $request->All(), fa capo agli attributi NAME e VALUE di ogni TAG
+        // e li salva tutti in un array chiamato $data
+
+        //dd($data);
 
         //validazione
         $request->validate([
@@ -72,7 +81,17 @@ class PostController extends Controller
         $new_post->fill($data);
         $new_post->save();
 
-        return redirect()->route('admin.post.index');
+        //creata la nuova istanza, si va a fare un check riguardo la possibile
+        // selezione di Tags
+        if( array_key_exists( 'tags', $data ) ){
+            $new_post->tags()->sync( $data['tags'] );
+        }
+        //nel caso di relazione tra i new_post e tags, verrà generato
+        //un nuovo record per relazione nella Pivot
+
+        //fatto qua, lo stesso procedimento andrà fatto in EDIT, in EDIT.BLADE ed in UPDATE
+
+        return redirect()->route('admin.post.show', ['post' => $new_post->id]);
     }
 
     /**
@@ -84,6 +103,8 @@ class PostController extends Controller
     public function show($id)
     {
         $elem = Post::findOrFail($id);
+
+        //$categories = Category::All();
 
         return view('admin.post.show', compact('elem'));
     }
@@ -98,7 +119,11 @@ class PostController extends Controller
     {
         $elem = Post::findOrFail($id);
 
-        return view('admin.post.edit', compact('elem'));
+        $categories = Category::All();
+
+        $tags = Tagg::All();
+
+        return view('admin.post.edit', compact('elem', 'categories', 'tags'));
     }
 
     /**
@@ -115,6 +140,17 @@ class PostController extends Controller
 
         $elem->update($data);
 
+        //create le check in pagina, si va a fare lo stesso ciclo della STORE
+        if (array_key_exists('tags', $data)) {
+            $post_to_edit->tags()->sync($data['tags']);
+            //aggiungendo un ELSE nel caso di nessuna CHECK selezionata
+        } else {
+            $post_to_edit->tags()->sync([]);
+        }
+        //nel caso di Deselezione, il controllo va ad eliminare
+        //la REALAZIONE della PIVOT
+        //poi DESTROY
+
         return redirect()->route('admin.post.show', $elem->id);
     }
 
@@ -127,6 +163,8 @@ class PostController extends Controller
     public function destroy($id)
     {
         $elem = Post::findOrFail($id);
+        //qua si va a puntualizzare che nel cancellare il singolo Post
+        //andrà cancellata anche la RELAZIONE nella PIVOT
         $elem->delete();
 
         return redirect()->route('admin.post.index'); 

@@ -25,4 +25,13 @@ class Post extends Model
     public function category(){   // nome f() = nome Modello di riferimento -> in questo caso sing perchè 1category to Many posts
         return $this->belongsTo('App\Models\Category');     //il record ha solo UNA cat. associata
     }
+
+    //dopo il comando da temrinale
+    // php artisan make:model Models/Tag -ms //
+    // f() -> Relazione ManyToMany -> in questo caso con  i tag
+    public function tags(){
+        return $this->belongsToMany('App\Models\Tag');
+    }
+     //dopo di che si apre la Migration, per andare a realizzare
+    //la prima tabella ... quella dei Tags !!
 }
