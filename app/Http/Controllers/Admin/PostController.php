@@ -20,15 +20,21 @@ class PostController extends Controller
     public function index()
     {
         //per avere a disposizione in pagine i dati dell'utente loggato:
+        $user = Auth::user();
+
         //$posts = Post::All(); -> con la FK questo diventa:
+        
+        //$posts = Post::with('category')->All();
+        //$posts = Post::All();
+
         $data = [
-            'posts' => Post::with('category'),
-             'user' => Auth::user()
+            'posts' => Post::with('category')->get(),
         ];
+        //dd($data);        
         
         
-        return view('admin.post.index', $data);
-        //una volta ritonata la vista, andare a creare il link che
+        return view('admin.post.index', compact('user'), $data);
+        //una volta ritornata la vista, andare a creare il link che
         //faccia atterrare alla lista dei Post
         //in questo caso in admin.home
     }

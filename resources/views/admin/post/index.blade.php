@@ -31,18 +31,27 @@
             <tbody>
                 @foreach ($posts as $elem)
                 <tr>
-                    <td>{{$elem->id}}</td>
+                    
+                    <td>
+                        {{$elem->id}}
+                    </td>
+                    
                     <td>
                         <a href="{{ route('admin.posts.show', $elem->id) }}">
                             {{$elem->title}}
                         </a>
                     </td>
-                    <td>{{$elem->body}}</td>
+                    
+                    <td>
+                        {{$elem->body}}
+                    </td>
+                    
                     <td>
                         @if ( $elem->category )
-                            {{ $elem->category['name'] }}
-                        @endif
+                            {{ $elem->category->name }}
+                        @endif 
                     </td>
+                    
                     <td>
                         <form action="{{route('admin.posts.destroy', $elem->id)}}" method="POST">
                             @csrf
