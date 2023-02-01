@@ -121,7 +121,7 @@ class PostController extends Controller
 
         $categories = Category::All();
 
-        $tags = Tagg::All();
+        $tags = Tag::All();
 
         return view('admin.post.edit', compact('elem', 'categories', 'tags'));
     }
@@ -138,18 +138,20 @@ class PostController extends Controller
         $data = $request->All();
         $elem = Post::findOrFail($id);
 
-        $elem->update($data);
 
         //create le check in pagina, si va a fare lo stesso ciclo della STORE
         if (array_key_exists('tags', $data)) {
-            $post_to_edit->tags()->sync($data['tags']);
+            $elem->tags()->sync($data['tags']);
             //aggiungendo un ELSE nel caso di nessuna CHECK selezionata
         } else {
-            $post_to_edit->tags()->sync([]);
-        }
+            $elem->tags()->sync([]);
+        };
         //nel caso di Deselezione, il controllo va ad eliminare
         //la REALAZIONE della PIVOT
         //poi DESTROY
+
+        $elem->update($data);
+
 
         return redirect()->route('admin.post.show', $elem->id);
     }
