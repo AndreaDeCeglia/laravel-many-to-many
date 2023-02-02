@@ -17,9 +17,13 @@
     @endif
 
     {{-- {{ Auth::user()->id }} --}}
-
-    <form method="POST" action="{{ route('admin.posts.store') }}" class="mx-5 my-3">
-
+    
+    {{-- *********************************************************************************************************************************** --}}
+    {{-- DOPO LE MODIFICHE IN CONFIG/FILESYSTEMS.PHP, PER POTER STORARE DEI FILE, BISOGNA APPORTARE UNA MODIFICA AL FORM, CIOè AGGIUNGERE : --}}
+    {{--   enctype="multipart/form-data"   --}}
+    {{-- dopodichè basterà andare ad aggiungere l'input nel form --}}
+    <form method="POST" action="{{ route('admin.posts.store') }}" class="mx-5 my-3" enctype="multipart/form-data">
+    {{-- **************************************************************************************************************************** --}}
         @csrf
 
         <div class="mb-3">
@@ -69,6 +73,20 @@
             @endforeach
 
         </div>
+
+
+                    {{-- ********************** AGGIUNTA IMMAGINI ************************** --}}
+                    {{-- ******************************************************************* --}}
+        {{-- il bottone che verrà fuori, porterà al solito ESPLORA RISORSE, per andare a caricare i file dal proprio pc --}}
+        <div class="my-3">
+            <label for="">
+                Aggiunta Cover Image
+            </label>
+            <input type="file" name="image" class="form-control-file">
+        </div>
+        {{-- fatto ciò, visto che prima non c'erano immagine nei post, bisogna andare a CREARE LA COLONNA NELLA TABELLA DEL DB .. quindi lanciare da terminale --}}
+        {{--    php artisan make:migration update_add_cover_posts_table --table=posts    --}}
+        {{-- creata la MIGRAZIONE D'AGGIORNAMENTO, ci si sposta su di essa per fillarla --}}
 
         <button type="submit" class="btn btn-primary">Create</button>
     </form>

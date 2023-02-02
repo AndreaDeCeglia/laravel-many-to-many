@@ -54563,7 +54563,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_pages_AboutUs_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./views/pages/AboutUs.vue */ "./resources/js/views/pages/AboutUs.vue");
 /* harmony import */ var _views_pages_posts_PostsIndex_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./views/pages/posts/PostsIndex.vue */ "./resources/js/views/pages/posts/PostsIndex.vue");
 /* harmony import */ var _views_pages_HomePage_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./views/pages/HomePage.vue */ "./resources/js/views/pages/HomePage.vue");
-/* harmony import */ var _views_pages_posts_PostShow_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./views/pages/posts/PostShow.vue */ "./resources/js/views/pages/posts/PostShow.vue");
+/* harmony import */ var _views_pages_posts_PostShow_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./views/pages/posts/PostShow.vue */ "./resources/js/views/pages/posts/PostShow.vue");
 //questo lo si crea dopo
 //  npm i vue-router@3 //
 //da terminale
@@ -54606,7 +54606,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }, {
     path: '/posts/:id',
     name: 'singlePost',
-    component: _views_pages_posts_PostShow_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
+    component: _views_pages_posts_PostShow_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
   }]
 });
 

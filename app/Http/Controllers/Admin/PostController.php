@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\Tag;
+use Illuminate\Support\Facades\Storage;
 
 //utilizzo di Auth -> chiedere
 use Illuminate\Support\Facades\Auth;
@@ -79,8 +80,17 @@ class PostController extends Controller
         ]);
 
         $new_post = new Post();
+        //andiamo a fare un controllo riguardo L'AGGIUNTA DELL'IMMAGINE
+        // RICORDA DI IMPORTARE L'UTILIZZO DEL MODELLO STORAGE
+        if( array_key_exists('image', $data) ){
+            $cover_url = Storage::put('post_covers', $data['image']);
+            //creato l'url, devo specificare a quale colonna voglio dare quel valore
+            $data['cover'] = $cover_url;
+        }
         $new_post->fill($data);
         $new_post->save();
+
+        //dd($new_post);
 
         //creata la nuova istanza, si va a fare un check riguardo la possibile
         // selezione di Tags
@@ -91,7 +101,7 @@ class PostController extends Controller
         //un nuovo record per relazione nella Pivot
 
         //fatto qua, lo stesso procedimento andrà fatto in EDIT, in EDIT.BLADE ed in UPDATE
-        return redirect()->route('admin.posts.index');
+        return redirect()->route('admin.posts.show', $new_post);
     }
 
     /**
@@ -166,6 +176,10 @@ class PostController extends Controller
     public function destroy($id)
     {
         $elem = Post::findOrFail($id);
+        //riguardo le immagini
+        if($elem->cover){
+            Storage::delete($elem->cover);
+        };
         //qua si va a puntualizzare che nel cancellare il singolo Post
         //andrà cancellata anche la RELAZIONE nella PIVOT
         $elem->tags()->sync([]);

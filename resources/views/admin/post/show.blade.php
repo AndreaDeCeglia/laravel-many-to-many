@@ -5,6 +5,7 @@
         <h1>
             {{ $elem->title }}
         </h1>
+        <img class="img-fluid" src="{{ asset("storage/$elem->cover") }}" alt="">
         <h3>
             @if ( $elem->category )
                     {{ $elem->category->name }}

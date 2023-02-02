@@ -13,7 +13,23 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DRIVER', 'local'),
+
+    //********************* LEGGERE SOTTO **************** */
+    
+    //'default' => env('FILESYSTEM_DRIVER', 'local'),
+
+    'default' => env('FILESYSTEM_DRIVER', 'public'),
+
+    //----> FATTA LA MODIFICA AL FILE DI CONFIGURAZIONE ------->
+    //per attuare la modifica, bisogna svuotare la CACHE del CONFIG...
+    // prima si stoppano i due comandi del server, 'run watch' ed 'artisan serve'
+    // e si lancia 
+    // php artisan config:clear //
+    // poi si riattiva il server.... poi per creare il collegamento, simlink, lanciare da terminale
+    // php artisan storage:link //
+    // FARE ATTENZIONE CHE AL LANCIARE DEL COMANDO, LARAVEL CREI UN COLLEGAMENTO ALLA CARTELLA STORAGE, ALL'INTERNO DELLA CARTELLA PUBLIC
+    //dopodichè bisognerà creare degli input particolari per far storare i file ----> VEDI IN CREATE.BLADE.PHP
+
 
     /*
     |--------------------------------------------------------------------------
@@ -43,11 +59,18 @@ return [
 
     'disks' => [
 
+        // local utilizza solo ciò che viene salvato, tramite procedimento di STORAGE, all'interno appunto della cartella STORAGE
+        //se a monte del file, mantenessimo LOCAL, potremmo creare cose che rimarrebbero all'interno della cartella STORAGE...
+        //ma avendo noi l'obiettivo di andare a CARICARE IMMAGINI attraverso INPUT -> FILE, NON all'interno della cartella STORAGE direttamente, ma ---->
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
         ],
 
+        //----> ma all'interno della cartella più interna, PUBLIC !! Tutto questo perchè, attraverso il comando di Laravel
+        // php artisan storage:link //
+        // SI GENERERà UN COLLEGAMENTO TRA LA CARTELLA STORAGE/PUBLIC E LA CARTELLA PUBLIC
+        // dove linkiamo i file CSS e JS
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
@@ -55,6 +78,7 @@ return [
             'visibility' => 'public',
         ],
 
+        //questa sezione è per lavorare con AMAZON
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

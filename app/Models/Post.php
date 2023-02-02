@@ -12,12 +12,15 @@ class Post extends Model
         'title',
         'body',
         //avendo creato la relazione 1tM dopo la tabella, bisogna aggiungere la FK nel Fillable
-        'category_id'
+        'category_id',
         //dopo averla inserita qui, ci sono 2 possib.
         //o si va ad inserire la nuova colonna all'interno della Migr. Post e poi da Terminale
         // php artisan migrate:refresh //
         //oppure andare a creare una nuova Migr. d'aggiornamento
         // php artisan make:migration update_add_category_id_posts_table --table=posts //
+
+        // *** AGGIUNTA IMMAGINI -> in questo caso abbiamo già migrato l'aggiornamento della Tabella
+        'cover'
     ];
 
     //funzione DI RELAZIONE per spiegare a Laravel, ed al DB, la relazione
