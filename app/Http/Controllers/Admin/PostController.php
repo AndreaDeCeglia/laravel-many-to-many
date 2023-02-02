@@ -21,7 +21,7 @@ class PostController extends Controller
     public function index()
     {
         //per avere a disposizione in pagine i dati dell'utente loggato:
-        $user = Auth::user();
+        //$user = Auth::user();
 
         //$posts = Post::All(); -> con la FK questo diventa:
         
@@ -29,12 +29,13 @@ class PostController extends Controller
         //$posts = Post::All();
 
         $data = [
-            'posts' => Post::with('category', 'tags')->get(),
+            'user' => Auth::user(),
+            'posts' => Post::with('category', 'tags')->get()
         ];
         //dd($data);        
         
         
-        return view('admin.post.index', compact('user'), $data);
+        return view('admin.post.index', $data);
         //una volta ritornata la vista, andare a creare il link che
         //faccia atterrare alla lista dei Post
         //in questo caso in admin.home
@@ -90,8 +91,7 @@ class PostController extends Controller
         //un nuovo record per relazione nella Pivot
 
         //fatto qua, lo stesso procedimento andrà fatto in EDIT, in EDIT.BLADE ed in UPDATE
-
-        return redirect()->route('admin.post.show', ['post' => $new_post->id]);
+        return redirect()->route('admin.posts.index');
     }
 
     /**
@@ -152,8 +152,9 @@ class PostController extends Controller
 
         $elem->update($data);
 
+        //return view('admin.post.show', compact('elem'));
+        return redirect()->route('admin.posts.show', $elem->id);
 
-        return redirect()->route('admin.post.show', $elem->id);
     }
 
     /**
@@ -167,8 +168,15 @@ class PostController extends Controller
         $elem = Post::findOrFail($id);
         //qua si va a puntualizzare che nel cancellare il singolo Post
         //andrà cancellata anche la RELAZIONE nella PIVOT
+        $elem->tags()->sync([]);
         $elem->delete();
 
-        return redirect()->route('admin.post.index'); 
+        //$user = Auth::user();
+
+        //return view('admin.post.index'); 
+        //return view('admin.post.index', compact('user'));
+        return redirect()->route('admin.posts.index');
+
+
     }
 }

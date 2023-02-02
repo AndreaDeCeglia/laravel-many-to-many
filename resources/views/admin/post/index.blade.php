@@ -5,7 +5,7 @@
     <div class="container">
 
         <h3>
-            BenTornato {{ $user->name }}
+            BenTornato! {{ $user->name }}
         </h3>
         
         <h1>

@@ -3,8 +3,13 @@
     <Loader v-if="isLoading"/>
             <ul v-else-if="posts.length">
                <li v-for="elem in posts" :key="elem.id">
-                    {{ elem.title }}
-               </li>
+                
+                    <router-link :to="`/posts/${elem.id}`">
+                    <!-- <router-link :to"'/posts/${elem.id}'"> -->
+                        {{ elem.title }}
+                    </router-link>
+               
+                </li>
             </ul>
             <p v-else>
                 non ci sono post da visualizzare
@@ -69,6 +74,7 @@ export default {
                     console.log(err);
                 }).then(() => {
                     this.isLoading = false;
+                    console.log(this.posts)
                 });
         
         }

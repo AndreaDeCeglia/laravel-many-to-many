@@ -24,13 +24,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //Route::get('/posts', 'PostController@index');
 
 // queste rotte, del 1parametro, di default, viene aggiunto un pref. che si chiama API
-//localhost:8000/api/posts
 
 Route::namespace('Api')
 //namespace è il path che ci porta al file
     ->prefix('/posts')
     ->group(function(){
+        //localhost:8000/api/posts
         Route::get('/', 'PostController@index');
+        //localhost:8000/api/posts/12
+        Route::get('/{id}', 'PostController@show');
     });
 
     //creare un controller dentro una cartelle API

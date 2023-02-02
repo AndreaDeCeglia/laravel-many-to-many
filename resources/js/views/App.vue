@@ -2,23 +2,34 @@
     <div class="container">
         <!-- <WorkInProgress/> -->
 
+        <!-- HEADER NAVIGAZIONE -->
+        <Header/>
+
         <!-- scrivere i dati dei post -->
         <!-- <PostsList :posts="posts" :isLoading="isLoading" :pagination="pagination"/> -->
-        <PostsList/>
+        <!-- <PostsList/> -->
+
+        <router-view></router-view>
+        <!-- non c'è bisogno di importazione
+        ci fa usare il ROUTER
+        e ci innesta il codice nel TAG
+        simile allo @YIELD di LARAVEL -->
     </div>
 </template>
 
 <script>
 
-import WorkInProgress from "../components/WorkInProgress"
+//import WorkInProgress from "../components/WorkInProgress"
 import PostsList from '../components/posts/PostsList.vue'
+import Header from '../components/Header.vue'
 
 export default {
     name: "App",
     components: {
         //qui inseriremo i futuri componenti
-        WorkInProgress,
-        PostsList
+        //WorkInProgress,
+        PostsList,
+        Header
     },
     // data(){
     //     return{

@@ -8,6 +8,9 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+//qua si va a recuperare il File, esportandolo da routes.je
+import router from './routes.js'
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -36,5 +39,6 @@ import App from './views/App';
 const app = new Vue({
     el: '#root',
     //ED IN SEGUITO SI AGGIUNGE:
+    router,
     render: h=> h(App),
 });
