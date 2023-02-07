@@ -38,3 +38,14 @@ Route::namespace('Api')
     //creare un controller dentro una cartelle API
     // php artisan make:controller Api/PostController --api //
     //ci ritornerà un controller di Risorsa per le API
+
+
+Route::namespace('Api')
+//namespace è il path che ci porta al file
+    ->prefix('/tags')
+    ->group(function(){
+        //localhost:8000/api/posts
+        Route::get('/', 'TagsController@index');
+        //scritta la Route, dovremo portarci in pagina la lista dei TAGS, coi POST allegati
+        Route::get('/{name}', 'TagsController@show');
+    });

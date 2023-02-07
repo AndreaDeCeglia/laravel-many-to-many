@@ -24,6 +24,9 @@
                     <li class="nav-item">
                         <router-link :to="'/posts'" class="nav-link">Mostra i post</router-link>
                     </li>
+                    <li class="nav-item">
+                        <router-link :to="'/tags'" class="nav-link">Mostra i tags</router-link>
+                    </li>
                 </ul>
             </div>
         </div>

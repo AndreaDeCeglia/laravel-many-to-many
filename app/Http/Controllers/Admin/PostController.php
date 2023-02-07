@@ -4,10 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
 use App\Models\Post;
+
 use App\Models\Category;
+
 use App\Models\Tag;
+
 use Illuminate\Support\Facades\Storage;
+
+use App\Mail\SendNewMail;
+use Illuminate\Support\Facades\Mail;
 
 //utilizzo di Auth -> chiedere
 use Illuminate\Support\Facades\Auth;
@@ -99,6 +106,15 @@ class PostController extends Controller
         }
         //nel caso di relazione tra i new_post e tags, verrà generato
         //un nuovo record per relazione nella Pivot
+
+
+        //**** INVIO MAIL DI CREAZIONE **** */
+        $mail = new createPostMail($newPost);  //RICORDARE CHE "NEW" ATTIVA IL CONSTRUCTOR
+        //nel to() ci sarà l'informazione dell'user che creerà il post, nel seguente modo:
+        $email_utente = Auth::user()->email;
+        Mail::to($email_utente)->send($mail);
+        //dopo tutto questo, alla creazione del nuovo post, il sito invia una mail alla casella mail fittizia, che possiamo verificare andando
+        //a controllare su MAILTRAP
 
         //fatto qua, lo stesso procedimento andrà fatto in EDIT, in EDIT.BLADE ed in UPDATE
         return redirect()->route('admin.posts.show', $new_post);
